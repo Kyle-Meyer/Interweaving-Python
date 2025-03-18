@@ -7,11 +7,10 @@ setup(
     install_requires=[],
     entry_points={
         'console_scripts': [
-            'signal-untangler=signal_untangler.main:main',
+            'signal-untangler=main:main',
         ],
         'gui_scripts': [
-            'signal-untangler-gui=signal_untangler_gui.app:launch_gui',
+            'signal-untangler-gui=interweaving_gui.interweaving_gui:launch_gui',
         ],
     },
 )
-
