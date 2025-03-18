@@ -1,4 +1,5 @@
-from .algorithm import is_interweaving
+# signal_untangler/__init__.py
 
-__version__ = '0.1.0'
+from signal_untangler.algorithm import is_interweaving
+
 __all__ = ['is_interweaving']
