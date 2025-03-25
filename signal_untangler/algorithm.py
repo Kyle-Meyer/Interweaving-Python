@@ -1,11 +1,10 @@
-
-def is_interweaving(s, x, y):
-    if not x or not y:
+def is_interweaving(aOriginalString, aStringX, aStringY):
+    if not aStringX or not aStringY:
         return False
     
-    len_s = len(s)
-    len_x = len(x)
-    len_y = len(y)
+    len_s = len(aOriginalString)
+    len_x = len(aStringX)
+    len_y = len(aStringY)
     
     # We need at least one complete copy of x and y
     min_length = len_x + len_y
@@ -19,18 +18,18 @@ def is_interweaving(s, x, y):
         
         # Process characters from this starting position
         for i in range(start, len_s):
-            char = s[i]
+            char = aOriginalString[i]
             new_states = set()
             
             for x_pos, y_pos, comp_x, comp_y in states:
                 # Try to match with x
-                if char == x[x_pos]:
+                if char == aStringX[x_pos]:
                     new_x_pos = (x_pos + 1) % len_x
                     new_comp_x = comp_x or new_x_pos == 0
                     new_states.add((new_x_pos, y_pos, new_comp_x, comp_y))
                 
                 # Try to match with y
-                if char == y[y_pos]:
+                if char == aStringY[y_pos]:
                     new_y_pos = (y_pos + 1) % len_y
                     new_comp_y = comp_y or new_y_pos == 0
                     new_states.add((x_pos, new_y_pos, comp_x, new_comp_y))
@@ -45,4 +44,5 @@ def is_interweaving(s, x, y):
             # If no valid states, try next starting position
             if not states:
                 break
+    
     return False
