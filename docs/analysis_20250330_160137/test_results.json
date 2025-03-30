@@ -1,0 +1,184 @@
+{
+  "results": [
+    {
+      "pattern_x_length": 4,
+      "pattern_y_length": 4,
+      "signal_length": 1000,
+      "execution_time_ms": 0.013113021850585938,
+      "result": true,
+      "pattern_x": "0101",
+      "pattern_y": "0100"
+    },
+    {
+      "pattern_x_length": 4,
+      "pattern_y_length": 4,
+      "signal_length": 5000,
+      "execution_time_ms": 0.0073909759521484375,
+      "result": true,
+      "pattern_x": "0101",
+      "pattern_y": "0100"
+    },
+    {
+      "pattern_x_length": 4,
+      "pattern_y_length": 4,
+      "signal_length": 10000,
+      "execution_time_ms": 0.006198883056640625,
+      "result": true,
+      "pattern_x": "0101",
+      "pattern_y": "0100"
+    },
+    {
+      "pattern_x_length": 4,
+      "pattern_y_length": 4,
+      "signal_length": 20000,
+      "execution_time_ms": 0.0057220458984375,
+      "result": true,
+      "pattern_x": "0101",
+      "pattern_y": "0100"
+    },
+    {
+      "pattern_x_length": 4,
+      "pattern_y_length": 4,
+      "signal_length": 50000,
+      "execution_time_ms": 0.007152557373046875,
+      "result": true,
+      "pattern_x": "0101",
+      "pattern_y": "0100"
+    },
+    {
+      "pattern_x_length": 8,
+      "pattern_y_length": 8,
+      "signal_length": 1000,
+      "execution_time_ms": 0.020742416381835938,
+      "result": true,
+      "pattern_x": "01010101",
+      "pattern_y": "01010100"
+    },
+    {
+      "pattern_x_length": 8,
+      "pattern_y_length": 8,
+      "signal_length": 5000,
+      "execution_time_ms": 0.0171661376953125,
+      "result": true,
+      "pattern_x": "01010101",
+      "pattern_y": "01010100"
+    },
+    {
+      "pattern_x_length": 8,
+      "pattern_y_length": 8,
+      "signal_length": 10000,
+      "execution_time_ms": 0.0152587890625,
+      "result": true,
+      "pattern_x": "01010101",
+      "pattern_y": "01010100"
+    },
+    {
+      "pattern_x_length": 8,
+      "pattern_y_length": 8,
+      "signal_length": 20000,
+      "execution_time_ms": 0.0152587890625,
+      "result": true,
+      "pattern_x": "01010101",
+      "pattern_y": "01010100"
+    },
+    {
+      "pattern_x_length": 8,
+      "pattern_y_length": 8,
+      "signal_length": 50000,
+      "execution_time_ms": 0.014781951904296875,
+      "result": true,
+      "pattern_x": "01010101",
+      "pattern_y": "01010100"
+    },
+    {
+      "pattern_x_length": 16,
+      "pattern_y_length": 16,
+      "signal_length": 1000,
+      "execution_time_ms": 0.07367134094238281,
+      "result": true,
+      "pattern_x": "0101010101010101",
+      "pattern_y": "0101010101010100"
+    },
+    {
+      "pattern_x_length": 16,
+      "pattern_y_length": 16,
+      "signal_length": 5000,
+      "execution_time_ms": 0.057697296142578125,
+      "result": true,
+      "pattern_x": "0101010101010101",
+      "pattern_y": "0101010101010100"
+    },
+    {
+      "pattern_x_length": 16,
+      "pattern_y_length": 16,
+      "signal_length": 10000,
+      "execution_time_ms": 0.057220458984375,
+      "result": true,
+      "pattern_x": "0101010101010101",
+      "pattern_y": "0101010101010100"
+    },
+    {
+      "pattern_x_length": 16,
+      "pattern_y_length": 16,
+      "signal_length": 20000,
+      "execution_time_ms": 0.06008148193359375,
+      "result": true,
+      "pattern_x": "0101010101010101",
+      "pattern_y": "0101010101010100"
+    },
+    {
+      "pattern_x_length": 16,
+      "pattern_y_length": 16,
+      "signal_length": 50000,
+      "execution_time_ms": 0.051975250244140625,
+      "result": true,
+      "pattern_x": "0101010101010101",
+      "pattern_y": "0101010101010100"
+    },
+    {
+      "pattern_x_length": 32,
+      "pattern_y_length": 32,
+      "signal_length": 1000,
+      "execution_time_ms": 0.24247169494628906,
+      "result": true,
+      "pattern_x": "01010101010101010101010101010101",
+      "pattern_y": "01010101010101010101010101010100"
+    },
+    {
+      "pattern_x_length": 32,
+      "pattern_y_length": 32,
+      "signal_length": 5000,
+      "execution_time_ms": 0.22673606872558594,
+      "result": true,
+      "pattern_x": "01010101010101010101010101010101",
+      "pattern_y": "01010101010101010101010101010100"
+    },
+    {
+      "pattern_x_length": 32,
+      "pattern_y_length": 32,
+      "signal_length": 10000,
+      "execution_time_ms": 0.22864341735839844,
+      "result": true,
+      "pattern_x": "01010101010101010101010101010101",
+      "pattern_y": "01010101010101010101010101010100"
+    },
+    {
+      "pattern_x_length": 32,
+      "pattern_y_length": 32,
+      "signal_length": 20000,
+      "execution_time_ms": 0.21839141845703125,
+      "result": true,
+      "pattern_x": "01010101010101010101010101010101",
+      "pattern_y": "01010101010101010101010101010100"
+    },
+    {
+      "pattern_x_length": 32,
+      "pattern_y_length": 32,
+      "signal_length": 50000,
+      "execution_time_ms": 0.22029876708984375,
+      "result": true,
+      "pattern_x": "01010101010101010101010101010101",
+      "pattern_y": "01010101010101010101010101010100"
+    }
+  ]
+}

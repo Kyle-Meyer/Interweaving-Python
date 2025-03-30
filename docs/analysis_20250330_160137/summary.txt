@@ -1,0 +1,121 @@
+Worst-Case Performance Analysis for Binary Patterns
+============================================================
+
+Test conducted on: 2025-03-30 16:01:37
+
+Time Complexity Analysis:
+------------------------------
+
+Signal Length   | Pattern X  | Pattern Y  | Time (ms)    | Result  
+-----------------------------------------------------------------
+1000            | 4          | 4          | 0.01         | True    
+5000            | 4          | 4          | 0.01         | True    
+10000           | 4          | 4          | 0.01         | True    
+20000           | 4          | 4          | 0.01         | True    
+50000           | 4          | 4          | 0.01         | True    
+
+1000            | 8          | 8          | 0.02         | True    
+5000            | 8          | 8          | 0.02         | True    
+10000           | 8          | 8          | 0.02         | True    
+20000           | 8          | 8          | 0.02         | True    
+50000           | 8          | 8          | 0.01         | True    
+
+1000            | 16         | 16         | 0.07         | True    
+5000            | 16         | 16         | 0.06         | True    
+10000           | 16         | 16         | 0.06         | True    
+20000           | 16         | 16         | 0.06         | True    
+50000           | 16         | 16         | 0.05         | True    
+
+1000            | 32         | 32         | 0.24         | True    
+5000            | 32         | 32         | 0.23         | True    
+10000           | 32         | 32         | 0.23         | True    
+20000           | 32         | 32         | 0.22         | True    
+50000           | 32         | 32         | 0.22         | True    
+
+
+Complete test results saved to: ./docs/analysis_20250330_160137/test_results.json
+
+
+Complexity Growth Analysis:
+------------------------------
+
+Pattern Size | Signal Growth | Time Growth | Expected Ratio | Observed Exponent
+---------------------------------------------------------------------------
+
+Pattern size: X=4, Y=4
+4x4 | 1000 → 5000 (5.0x) | 0.01ms → 0.01ms (0.6x) | 25.0x | O(s^-0.36)
+4x4 | 5000 → 10000 (2.0x) | 0.01ms → 0.01ms (0.8x) | 4.0x | O(s^-0.25)
+4x4 | 10000 → 20000 (2.0x) | 0.01ms → 0.01ms (0.9x) | 4.0x | O(s^-0.12)
+4x4 | 20000 → 50000 (2.5x) | 0.01ms → 0.01ms (1.2x) | 6.2x | O(s^0.24)
+
+Pattern size: X=8, Y=8
+8x8 | 1000 → 5000 (5.0x) | 0.02ms → 0.02ms (0.8x) | 25.0x | O(s^-0.12)
+8x8 | 5000 → 10000 (2.0x) | 0.02ms → 0.02ms (0.9x) | 4.0x | O(s^-0.17)
+8x8 | 10000 → 20000 (2.0x) | 0.02ms → 0.02ms (1.0x) | 4.0x | O(s^0.00)
+8x8 | 20000 → 50000 (2.5x) | 0.02ms → 0.01ms (1.0x) | 6.2x | O(s^-0.03)
+
+Pattern size: X=16, Y=16
+16x16 | 1000 → 5000 (5.0x) | 0.07ms → 0.06ms (0.8x) | 25.0x | O(s^-0.15)
+16x16 | 5000 → 10000 (2.0x) | 0.06ms → 0.06ms (1.0x) | 4.0x | O(s^-0.01)
+16x16 | 10000 → 20000 (2.0x) | 0.06ms → 0.06ms (1.1x) | 4.0x | O(s^0.07)
+16x16 | 20000 → 50000 (2.5x) | 0.06ms → 0.05ms (0.9x) | 6.2x | O(s^-0.16)
+
+Pattern size: X=32, Y=32
+32x32 | 1000 → 5000 (5.0x) | 0.24ms → 0.23ms (0.9x) | 25.0x | O(s^-0.04)
+32x32 | 5000 → 10000 (2.0x) | 0.23ms → 0.23ms (1.0x) | 4.0x | O(s^0.01)
+32x32 | 10000 → 20000 (2.0x) | 0.23ms → 0.22ms (1.0x) | 4.0x | O(s^-0.07)
+32x32 | 20000 → 50000 (2.5x) | 0.22ms → 0.22ms (1.0x) | 6.2x | O(s^0.01)
+
+
+Pattern Size Impact Analysis:
+------------------------------
+
+Signal length: 1000
+Pattern Size (X×Y) | Time (ms) | Ratio vs Previous
+--------------------------------------------------
+4×4 (16) | 0.01 | -
+8×8 (64) | 0.02 | 1.58x (size ↑4.00x)
+16×16 (256) | 0.07 | 3.55x (size ↑4.00x)
+32×32 (1024) | 0.24 | 3.29x (size ↑4.00x)
+
+Signal length: 5000
+Pattern Size (X×Y) | Time (ms) | Ratio vs Previous
+--------------------------------------------------
+4×4 (16) | 0.01 | -
+8×8 (64) | 0.02 | 2.32x (size ↑4.00x)
+16×16 (256) | 0.06 | 3.36x (size ↑4.00x)
+32×32 (1024) | 0.23 | 3.93x (size ↑4.00x)
+
+Signal length: 10000
+Pattern Size (X×Y) | Time (ms) | Ratio vs Previous
+--------------------------------------------------
+4×4 (16) | 0.01 | -
+8×8 (64) | 0.02 | 2.46x (size ↑4.00x)
+16×16 (256) | 0.06 | 3.75x (size ↑4.00x)
+32×32 (1024) | 0.23 | 4.00x (size ↑4.00x)
+
+Signal length: 20000
+Pattern Size (X×Y) | Time (ms) | Ratio vs Previous
+--------------------------------------------------
+4×4 (16) | 0.01 | -
+8×8 (64) | 0.02 | 2.67x (size ↑4.00x)
+16×16 (256) | 0.06 | 3.94x (size ↑4.00x)
+32×32 (1024) | 0.22 | 3.63x (size ↑4.00x)
+
+Signal length: 50000
+Pattern Size (X×Y) | Time (ms) | Ratio vs Previous
+--------------------------------------------------
+4×4 (16) | 0.01 | -
+8×8 (64) | 0.01 | 2.07x (size ↑4.00x)
+16×16 (256) | 0.05 | 3.52x (size ↑4.00x)
+32×32 (1024) | 0.22 | 4.24x (size ↑4.00x)
+
+
+
+Conclusion:
+------------------------------
+Based on the data collected, the algorithm appears to have:
+- Time complexity: O(|s|² × |x| × |y|) in the worst case
+- Space complexity: O(|x| × |y|)
+
+Visualization files have been generated in the same directory as this summary.

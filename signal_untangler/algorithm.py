@@ -6,43 +6,46 @@ def is_interweaving(aOriginalString, aStringX, aStringY):
     len_x = len(aStringX)
     len_y = len(aStringY)
     
-    # We need at least one complete copy of x and y
+    # Need minimum length to contain both patterns
     min_length = len_x + len_y
     if len_s < min_length:
         return False
     
     # Try each possible starting position
     for start in range(len_s - min_length + 1):
-        # Initialize state tracking
-        states = {(0, 0, False, False)}  # (x_pos, y_pos, completed_x, completed_y)
+        # For each starting position, create a single state rather than a set of states
+        x_pos = 0
+        y_pos = 0
+        x_completed = False
+        y_completed = False
         
         # Process characters from this starting position
-        for i in range(start, len_s):
+        i = start
+        while i < len_s:
             char = aOriginalString[i]
-            new_states = set()
+            matched = False
             
-            for x_pos, y_pos, comp_x, comp_y in states:
-                # Try to match with x
-                if char == aStringX[x_pos]:
-                    new_x_pos = (x_pos + 1) % len_x
-                    new_comp_x = comp_x or new_x_pos == 0
-                    new_states.add((new_x_pos, y_pos, new_comp_x, comp_y))
-                
-                # Try to match with y
-                if char == aStringY[y_pos]:
-                    new_y_pos = (y_pos + 1) % len_y
-                    new_comp_y = comp_y or new_y_pos == 0
-                    new_states.add((x_pos, new_y_pos, comp_x, new_comp_y))
+            # Try to match with X first (prioritize X over Y)
+            if char == aStringX[x_pos]:
+                x_pos = (x_pos + 1) % len_x
+                if x_pos == 0:
+                    x_completed = True
+                matched = True
+                i += 1
+            # If X didn't match, try Y
+            elif char == aStringY[y_pos]:
+                y_pos = (y_pos + 1) % len_y
+                if y_pos == 0:
+                    y_completed = True
+                matched = True
+                i += 1
             
-            states = new_states
-            
-            # Check if we have a valid interweaving yet
-            for state in states:
-                if state[2] and state[3]:  # Both x and y completed
-                    return True
-            
-            # If no valid states, try next starting position
-            if not states:
+            # If neither pattern matched, this starting position doesn't work
+            if not matched:
                 break
-    
+            
+            # Check if we've completed both patterns
+            if x_completed and y_completed:
+                return True
+        
     return False
