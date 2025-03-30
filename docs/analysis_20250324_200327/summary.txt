@@ -1,0 +1,180 @@
+Performance Analysis Summary for test run at 20250324_200327
+============================================================
+
+Time Complexity Analysis:
+------------------------------
+
+Pattern X length: 4, Pattern Y length: 4
+Signal Length | Execution Time (ms)
+------------------------------
+100            | 0.01
+500            | 0.01
+1000           | 0.01
+2000           | 0.01
+5000           | 0.04
+
+Pattern X length: 8, Pattern Y length: 8
+Signal Length | Execution Time (ms)
+------------------------------
+100            | 0.02
+500            | 0.02
+1000           | 0.02
+2000           | 0.02
+5000           | 0.02
+
+Pattern X length: 2, Pattern Y length: 4
+Signal Length | Execution Time (ms)
+------------------------------
+100            | 0.01
+500            | 0.02
+1000           | 0.01
+2000           | 0.01
+5000           | 0.01
+
+Pattern X length: 8, Pattern Y length: 4
+Signal Length | Execution Time (ms)
+------------------------------
+100            | 0.01
+500            | 0.02
+1000           | 0.02
+2000           | 0.02
+5000           | 0.02
+
+Pattern X length: 4, Pattern Y length: 2
+Signal Length | Execution Time (ms)
+------------------------------
+100            | 0.01
+500            | 0.01
+1000           | 0.01
+2000           | 0.01
+5000           | 0.01
+
+Pattern X length: 4, Pattern Y length: 8
+Signal Length | Execution Time (ms)
+------------------------------
+100            | 0.02
+500            | 0.01
+1000           | 0.02
+2000           | 0.02
+5000           | 0.02
+
+Pattern X length: 2, Pattern Y length: 2
+Signal Length | Execution Time (ms)
+------------------------------
+100            | 0.03
+500            | 0.04
+1000           | 0.01
+2000           | 0.01
+5000           | 0.01
+
+Pattern X length: 8, Pattern Y length: 2
+Signal Length | Execution Time (ms)
+------------------------------
+100            | 0.01
+500            | 0.01
+1000           | 0.01
+2000           | 0.01
+5000           | 0.02
+
+Pattern X length: 2, Pattern Y length: 8
+Signal Length | Execution Time (ms)
+------------------------------
+100            | 0.02
+500            | 0.02
+1000           | 0.03
+2000           | 0.02
+5000           | 0.02
+
+
+Space Complexity Analysis:
+------------------------------
+
+Pattern X length: 4, Pattern Y length: 4
+Signal Length | Memory Usage (KB)
+------------------------------
+100            | 0.58
+500            | 0.61
+1000           | 0.61
+2000           | 0.61
+5000           | 0.61
+
+Pattern X length: 8, Pattern Y length: 8
+Signal Length | Memory Usage (KB)
+------------------------------
+100            | 1.08
+500            | 0.61
+1000           | 0.61
+2000           | 0.61
+5000           | 0.61
+
+Pattern X length: 2, Pattern Y length: 4
+Signal Length | Memory Usage (KB)
+------------------------------
+100            | 0.58
+500            | 2.10
+1000           | 0.61
+2000           | 0.61
+5000           | 0.61
+
+Pattern X length: 8, Pattern Y length: 4
+Signal Length | Memory Usage (KB)
+------------------------------
+100            | 0.58
+500            | 0.61
+1000           | 0.61
+2000           | 0.61
+5000           | 0.61
+
+Pattern X length: 4, Pattern Y length: 2
+Signal Length | Memory Usage (KB)
+------------------------------
+100            | 0.58
+500            | 0.61
+1000           | 0.61
+2000           | 0.61
+5000           | 0.61
+
+Pattern X length: 4, Pattern Y length: 8
+Signal Length | Memory Usage (KB)
+------------------------------
+100            | 0.58
+500            | 0.61
+1000           | 0.61
+2000           | 0.61
+5000           | 0.61
+
+Pattern X length: 2, Pattern Y length: 2
+Signal Length | Memory Usage (KB)
+------------------------------
+100            | 1.47
+500            | 0.61
+1000           | 0.61
+2000           | 0.68
+5000           | 0.61
+
+Pattern X length: 8, Pattern Y length: 2
+Signal Length | Memory Usage (KB)
+------------------------------
+100            | 0.58
+500            | 0.61
+1000           | 0.61
+2000           | 0.61
+5000           | 0.61
+
+Pattern X length: 2, Pattern Y length: 8
+Signal Length | Memory Usage (KB)
+------------------------------
+100            | 0.58
+500            | 1.11
+1000           | 0.61
+2000           | 0.61
+5000           | 0.61
+
+
+Conclusion:
+------------------------------
+Based on the data collected, the algorithm appears to have:
+- Time complexity: O(|s|² × |x| × |y|) in the worst case
+- Space complexity: O(|x| × |y|)
+
+Visualization files have been generated in the same directory as this summary.
