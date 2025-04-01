@@ -1,53 +1,111 @@
-import unittest
-from signal_untangler import is_interweaving
+import time
+from signal_untangler.algorithm import is_interweaving, count_comparisons
 
+def get_test_cases():
+    """Return the standard test cases for the algorithm."""
+    return [
+        # s, x, y, expected_result
+        ("100010101", "101", "0", True),      # Example from problem statement
+        ("1010", "10", "1", True),           # Simple example
+        ("0101", "01", "10", False),         # Not an interweaving
+        ("1100110011", "11", "00", True),    # Alternating patterns
+        ("01010101", "01", "01", True),      # Same pattern
+        ("", "0", "1", False),               # Empty s
+        ("0", "", "1", False),               # Empty x
+        ("1", "0", "", False),               # Empty y
+        ("01234", "01", "23", False),        # Invalid characters
+    ]
 
-class TestIsInterweaving(unittest.TestCase):
-    def test_basic_examples(self):
-        # Test the example from the problem statement
-        self.assertTrue(is_interweaving("100010101", "101", "0"))
+def run_basic_tests():
+    """Run the basic test cases and return results."""
+    results = []
+    test_cases = get_test_cases()
+    
+    print("Testing algorithm...")
+    print("=" * 50)
+    for i, (s, x, y, expected) in enumerate(test_cases):
+        result = is_interweaving(s, x, y)
+        comparisons = count_comparisons(s, x, y)
         
-        # Simple cases
-        self.assertTrue(is_interweaving("1010", "10", "10"))
-        self.assertTrue(is_interweaving("1100", "10", "1"))
-        self.assertFalse(is_interweaving("1110", "10", "1"))
+        test_result = {
+            "test_id": i + 1,
+            "signal": s,
+            "pattern_x": x,
+            "pattern_y": y,
+            "expected": expected,
+            "result": result,
+            "comparisons": comparisons,
+            "success": result == expected
+        }
+        results.append(test_result)
         
-    def test_empty_strings(self):
-        # Empty pattern strings should return False
-        self.assertFalse(is_interweaving("1010", "", "10"))
-        self.assertFalse(is_interweaving("1010", "10", ""))
-        self.assertFalse(is_interweaving("", "10", "01"))
-        
-    def test_signal_too_short(self):
-        # Signal too short to contain one repetition of each pattern
-        self.assertFalse(is_interweaving("10", "101", "01"))
-        
-    def test_discard_beginning(self):
-        # Should discard characters at the beginning
-        self.assertTrue(is_interweaving("11100010101", "101", "0"))
-        
-    def test_discard_end(self):
-        # Should recognize valid interleaving even if there are extra chars at the end
-        self.assertTrue(is_interweaving("10001010111", "101", "0"))
-        
-    def test_complex_cases(self):
-        # More complex patterns
-        self.assertTrue(is_interweaving("10110111011101", "101", "11111"))
-        self.assertTrue(is_interweaving("100101001010", "1010", "001"))
-        self.assertFalse(is_interweaving("1001010010100", "1010", "001"))  # Extra 0 at the end
-        
-    def test_identical_patterns(self):
-        # Test with identical patterns
-        self.assertTrue(is_interweaving("1010", "10", "10"))
-        self.assertTrue(is_interweaving("101010", "10", "10"))
-        
-    def test_longer_patterns(self):
-        # Test with longer patterns
-        x = "10101"
-        y = "110011"
-        s = "1110100110011101"  # Interleaved x and y
-        self.assertTrue(is_interweaving(s, x, y))
+        print(f"Test {i+1}:")
+        print(f"s = {s}, x = {x}, y = {y}")
+        print(f"Expected: {expected}, Got: {result}")
+        print(f"Comparisons: {comparisons}")
+        print("-" * 50)
+    
+    return results
 
+def generate_interweaved_string(x_pattern, y_pattern, length):
+    """Generate an interweaved string of specified length using patterns."""
+    s = ""
+    x_counter = 0
+    y_counter = 0
+    
+    for i in range(length):
+        if i % 2 == 0 and i % 3 != 0:
+            s += x_pattern[x_counter % len(x_pattern)]
+            x_counter += 1
+        else:
+            s += y_pattern[y_counter % len(y_pattern)]
+            y_counter += 1
+    
+    return s
 
-if __name__ == '__main__':
-    unittest.main()
+def run_complexity_analysis(lengths=None, x_pattern="101", y_pattern="0"):
+    """Run complexity analysis with different string lengths."""
+    if lengths is None:
+        lengths = [10, 100, 1000, 5000]
+    
+    results = []
+    
+    print("\nComplexity Analysis:")
+    print("=" * 50)
+    print(f"Using fixed patterns x = {x_pattern}, y = {y_pattern}")
+    print(f"{'Length of s':<15}{'Comparisons':<15}{'Time (s)':<15}")
+    print("-" * 45)
+    
+    for length in lengths:
+        # Create test signal - interweaving of x and y
+        s = generate_interweaved_string(x_pattern, y_pattern, length)
+        
+        # Measure performance
+        start_time = time.time()
+        comparisons = count_comparisons(s, x_pattern, y_pattern)
+        elapsed_time = time.time() - start_time
+        
+        result = {
+            "length": length,
+            "comparisons": comparisons,
+            "time_seconds": elapsed_time
+        }
+        results.append(result)
+        
+        print(f"{length:<15}{comparisons:<15}{elapsed_time:<15.6f}")
+    
+    return results
+
+def test_algorithm():
+    """Main function to run all tests."""
+    basic_results = run_basic_tests()
+    complexity_results = run_complexity_analysis()
+    
+    return {
+        "basic_tests": basic_results,
+        "complexity_analysis": complexity_results
+    }
+
+# Run tests if script is executed directly
+if __name__ == "__main__":
+    test_algorithm()

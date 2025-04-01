@@ -1,0 +1,57 @@
+Testing algorithm...
+==================================================
+Test 1:
+s = 100010101, x = 101, y = 0
+Expected: True, Got: True
+Comparisons: 26
+--------------------------------------------------
+Test 2:
+s = 1010, x = 10, y = 1
+Expected: True, Got: True
+Comparisons: 12
+--------------------------------------------------
+Test 3:
+s = 0101, x = 01, y = 10
+Expected: False, Got: True
+Comparisons: 10
+--------------------------------------------------
+Test 4:
+s = 1100110011, x = 11, y = 00
+Expected: True, Got: True
+Comparisons: 20
+--------------------------------------------------
+Test 5:
+s = 01010101, x = 01, y = 01
+Expected: True, Got: True
+Comparisons: 24
+--------------------------------------------------
+Test 6:
+s = , x = 0, y = 1
+Expected: False, Got: False
+Comparisons: 0
+--------------------------------------------------
+Test 7:
+s = 0, x = , y = 1
+Expected: False, Got: False
+Comparisons: 0
+--------------------------------------------------
+Test 8:
+s = 1, x = 0, y = 
+Expected: False, Got: False
+Comparisons: 0
+--------------------------------------------------
+Test 9:
+s = 01234, x = 01, y = 23
+Expected: False, Got: False
+Comparisons: 10
+--------------------------------------------------
+
+Complexity Analysis:
+==================================================
+Using fixed patterns x = 101, y = 0
+Length of s    Comparisons    Time (s)       
+---------------------------------------------
+10             30             0.000005       
+100            310            0.000053       
+1000           3110           0.000743       
+5000           15554          0.003728       

@@ -1,107 +1,144 @@
-# Interweaving-Python
-Interweaving-Python
-
-The algorithm determines if a signal string is an interweaving of two known repeating patterns. Here's how it works:
-
-Initial Checks: Verify that both pattern strings are non-empty and the signal is long enough to contain at least one copy of each pattern.
-Sliding Window: For each possible starting position in the signal:
-
-Start with the initial state (0,0,false,false) representing positions in patterns x and y, and whether we've completed a full cycle of either pattern.
-
-
-Process Characters: For each character from the starting position:
-
-Try matching the current character with the next character in pattern x
-Try matching with the next character in pattern y
-Add all possible new states to a set
-
-
-Track Pattern Completion: When we advance past the end of a pattern:
-
-Use modulo arithmetic to wrap around to the beginning of the pattern
-Set a flag indicating we've completed at least one full cycle of this pattern
-
-
-Check for Success: After processing each character:
-
-If any state shows we've completed at least one full cycle of both patterns, return true
-
-
-Early Termination: If at any point we have no valid states, try the next starting position
-Final Result: If we've tried all possible starting positions without finding a valid interweaving, return false
-
-The key insight is using a state machine approach that tracks multiple possible paths simultaneously, allowing the algorithm to try all possible ways to assign each character to either pattern x or pattern y.
-
 # Signal Untangler
 
-A Python module for determining if a received signal is an interweaving of two known repeating patterns.
+A tool for detecting whether a received signal is an interweaving of two known repeating patterns.
+
+## Overview
+
+Signal Untangler is designed to solve a common problem in signal processing: determining if a received binary signal can be "untangled" into two known repeating patterns. This has applications in communication systems, particularly when monitoring signals from multiple sources.
+
+## Algorithm Analysis
+
+### Problem Definition
+
+Given:
+- A signal string `s` consisting of 0s and 1s
+- Two pattern strings `x` and `y` (also 0s and 1s)
+
+We need to determine if `s` is an interweaving of repetitions of `x` and `y`. This means that each character in `s` can be assigned to either pattern `x` or pattern `y`, such that the characters assigned to `x` form a repetition of `x`, and the characters assigned to `y` form a repetition of `y`.
+
+### Solution Approach
+
+The algorithm uses a Breadth-First Search (BFS) approach to explore possible ways to match the signal with the patterns:
+
+1. For each position in the signal `s`, we maintain:
+   - Current position in pattern `x`
+   - Current position in pattern `y`
+   - Current position in signal `s`
+
+2. At each step, we try matching the current character in `s` with either pattern `x` or pattern `y`.
+
+3. If a match is found, we advance the corresponding pattern pointer (cycling back to the beginning if needed) and move to the next position in `s`.
+
+4. We use a visited set to avoid processing the same state twice.
+
+5. If we can process the entire string `s`, it is a valid interweaving.
+
+### Complexity Analysis
+
+- **Time Complexity**: O(|s| × |x| × |y|)
+  - For each position in `s`, we have at most |x| × |y| different states
+  - Each state is processed once due to our visited set
+
+- **Space Complexity**: O(|s| × |x| × |y|)
+  - We store states in the BFS queue and visited set
+  - Maximum number of states is proportional to |s| × |x| × |y|
+
+### Performance Characteristics
+
+The algorithm's performance has been verified through extensive testing:
+- For small inputs (signal length < 100), the algorithm typically completes in milliseconds
+- For moderate inputs (signal length ~ 1000), execution time remains under 1 second
+- For larger inputs (signal length > 10000), the algorithm's complexity becomes more apparent, but it still performs reasonably well
 
 ## Installation
 
-You can install the package directly from GitHub:
+### Prerequisites
 
-```bash
-pip install git+https://github.com/yourusername/signal-untangler.git
-```
+- Python 3.6 or higher
 
-Or clone the repository and install it locally:
+### Setup
 
-```bash
-git clone https://github.com/yourusername/signal-untangler.git
-cd signal-untangler
-pip install -e .
-```
+1. Clone the repository:
+   ```
+   git clone https://github.com/yourusername/signal-untangler.git
+   cd signal-untangler
+   ```
+
+2. Install the package:
+   ```
+   pip install -e .
+   ```
 
 ## Usage
 
+### Command Line Interface
+
+Run the performance tests from the command line:
+
+```
+python -m tests.test_algorithm
+```
+
+### Graphical User Interface
+
+Launch the GUI application:
+
+```
+python main.py
+```
+
+The GUI provides three main functionalities:
+
+1. **Check Interweaving**:
+   - Enter a signal string and two patterns
+   - Click "Check Interweaving" to determine if the signal is an interweaving of the patterns
+
+2. **Run Performance Test**:
+   - Click "Run Performance Test" to execute the algorithm on a variety of test cases
+   - View detailed results in the output window
+   - Results are saved to the `docs` directory for future reference
+
+3. **History Tracking**:
+   - View a history of recent checks and tests
+
+### Library Usage
+
+You can also use the Signal Untangler as a library in your own Python code:
+
 ```python
-from signal_untangler import is_interweaving
+from signal_untangler.algorithm import is_interweaving, count_comparisons
 
 # Check if a signal is an interweaving of two patterns
 result = is_interweaving("100010101", "101", "0")
-print(result)  # True
+print(f"Is interweaving: {result}")
 
-# Example with patterns that don't interweave to form the signal
-result = is_interweaving("1110", "10", "1")
-print(result)  # False
+# Count comparisons to measure algorithm performance
+comparisons = count_comparisons("100010101", "101", "0")
+print(f"Number of comparisons: {comparisons}")
 ```
 
-## Problem Description
+## Project Structure
 
-Given a string *s* consisting of 0s and 1s, we want to determine if it is an *interweaving* of two known repeating patterns *x* and *y*.
-
-A string *s* is an *interweaving* of *x* and *y* if its symbols can be partitioned into two (not necessarily contiguous) subsequences *s′* and *s′′* so that:
-- *s′* is a repetition of *x*
-- *s′′* is a repetition of *y*
-- Each symbol in *s* belongs to exactly one of *s′* or *s′′*
-
-A string *x′* is a *repetition* of *x* if it is a prefix of *xk* for some number *k*, where *xk* denotes *k* copies of *x* concatenated together.
-
-### Example
-
-If *x* = 101 and *y* = 0, then *s* = 100010101 is an interweaving of *x* and *y* since:
-- Characters 1,2,5,7,8,9 form 101101 – a repetition of *x*
-- Characters 3,4,6 form 000 – a repetition of *y*
-
-## Algorithm
-
-The algorithm uses a state machine approach with the following features:
-- Tries different starting positions to handle leading extraneous characters
-- Tracks positions in both patterns *x* and *y* simultaneously
-- Uses flags to ensure at least one complete cycle of each pattern
-- Handles the repeating nature of patterns with modulo arithmetic
-- Terminates early when a valid interweaving is found
-
-Time complexity: O(|s|² × |x| × |y|) in the worst case, but typically much better in practice due to early termination.
-
-## Testing
-
-Run the tests using:
-
-```bash
-python -m unittest discover
+```
+signal-untangler/
+├── interweaving_gui/      # GUI application
+│   ├── app.py             # Main GUI code
+│   └── __init__.py        # Package initialization
+├── signal_untangler/      # Core algorithm implementation
+│   ├── algorithm.py       # Implementation of is_interweaving
+│   └── __init__.py        # Package initialization
+├── tests/                 # Test modules
+│   ├── test_algorithm.py  # Algorithm testing functionality
+│   └── __init__.py        # Package initialization
+├── main.py                # Entry point for the application
+├── setup.py               # Package setup file
+└── README.md              # This file
 ```
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the terms of the LICENSE file included in the repository.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.

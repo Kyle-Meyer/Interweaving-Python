@@ -1,51 +1,96 @@
-def is_interweaving(aOriginalString, aStringX, aStringY):
-    if not aStringX or not aStringY:
+import time
+from collections import deque
+
+def is_interweaving(s, x, y):
+    # Handle edge cases
+    if not s or not x or not y:
         return False
     
-    len_s = len(aOriginalString)
-    len_x = len(aStringX)
-    len_y = len(aStringY)
-    
-    # Need minimum length to contain both patterns
-    min_length = len_x + len_y
-    if len_s < min_length:
+    # Check if x and y are both strings of 0s and 1s
+    if any(c not in '01' for c in x) or any(c not in '01' for c in y):
         return False
     
-    # Try each possible starting position
-    for start in range(len_s - min_length + 1):
-        # For each starting position, create a single state rather than a set of states
-        x_pos = 0
-        y_pos = 0
-        x_completed = False
-        y_completed = False
+    # Initialize counters for x and y patterns
+    x_pos = 0
+    y_pos = 0
+    x_len = len(x)
+    y_len = len(y)
+    
+    # Initialize comparison count for complexity analysis
+    comparisons = 0
+    
+    # Use dynamic programming to solve this problem
+    # dp[i][j] = True if we can match s[0:i] using x_pos=j and some y_pos
+    # We'll use a dictionary to save space (sparse matrix)
+    dp = {}
+    
+    # Initialize visited set to avoid cycles
+    visited = set()
+    
+    # BFS approach for efficiency
+    queue = deque([(0, 0, 0)])  # (s_pos, x_pos, y_pos)
+    
+    while queue:
+        s_pos, x_pos, y_pos = queue.popleft()
         
-        # Process characters from this starting position
-        i = start
-        while i < len_s:
-            char = aOriginalString[i]
-            matched = False
-            
-            # Try to match with X first (prioritize X over Y)
-            if char == aStringX[x_pos]:
-                x_pos = (x_pos + 1) % len_x
-                if x_pos == 0:
-                    x_completed = True
-                matched = True
-                i += 1
-            # If X didn't match, try Y
-            elif char == aStringY[y_pos]:
-                y_pos = (y_pos + 1) % len_y
-                if y_pos == 0:
-                    y_completed = True
-                matched = True
-                i += 1
-            
-            # If neither pattern matched, this starting position doesn't work
-            if not matched:
-                break
-            
-            # Check if we've completed both patterns
-            if x_completed and y_completed:
-                return True
+        # If we've processed the entire string s, we have a valid interweaving
+        if s_pos == len(s):
+            return True
         
+        # Skip if we've already visited this state
+        state = (s_pos, x_pos, y_pos)
+        if state in visited:
+            continue
+        
+        visited.add(state)
+        
+        # Try matching with x
+        comparisons += 1
+        if s[s_pos] == x[x_pos]:
+            next_x_pos = (x_pos + 1) % x_len
+            queue.append((s_pos + 1, next_x_pos, y_pos))
+        
+        # Try matching with y
+        comparisons += 1
+        if s[s_pos] == y[y_pos]:
+            next_y_pos = (y_pos + 1) % y_len
+            queue.append((s_pos + 1, x_pos, next_y_pos))
+    
+    # If we exhaust all possibilities without matching the entire string, return False
     return False
+
+def count_comparisons(s, x, y):
+    # Handle edge cases
+    if not s or not x or not y:
+        return 0
+    
+    # Initialize counters
+    comparisons = 0
+    visited = set()
+    queue = deque([(0, 0, 0)])  # (s_pos, x_pos, y_pos)
+    
+    while queue:
+        s_pos, x_pos, y_pos = queue.popleft()
+        
+        if s_pos == len(s):
+            return comparisons
+        
+        state = (s_pos, x_pos, y_pos)
+        if state in visited:
+            continue
+        
+        visited.add(state)
+        
+        # Count comparison with x
+        comparisons += 1
+        if s[s_pos] == x[x_pos]:
+            next_x_pos = (x_pos + 1) % len(x)
+            queue.append((s_pos + 1, next_x_pos, y_pos))
+        
+        # Count comparison with y
+        comparisons += 1
+        if s[s_pos] == y[y_pos]:
+            next_y_pos = (y_pos + 1) % len(y)
+            queue.append((s_pos + 1, x_pos, next_y_pos))
+    
+    return comparisons

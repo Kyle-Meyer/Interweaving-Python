@@ -8,6 +8,13 @@ import datetime
 import tracemalloc
 import random
 import json
+import io
+import sys
+import traceback
+from contextlib import redirect_stdout
+
+# Import the test_algorithm module
+from tests.test_algorithm import test_algorithm, run_basic_tests, run_complexity_analysis
 
 class InterweavingGUI:
     def __init__(self, root):
@@ -120,77 +127,44 @@ class InterweavingGUI:
             self.result_text.config(state=tk.DISABLED)
             self.root.update()
             
-            # Test configuration
-            pattern_lengths = [2, 4, 8]  # Lengths of patterns x and y
-            signal_lengths = [100, 500, 1000, 2000, 5000]  # Lengths of signal s
-            results = []
+            # Capture output from test_algorithm function
+            output = io.StringIO()
+            with redirect_stdout(output):
+                # Use the imported test_algorithm function
+                test_results = test_algorithm()
             
-            for x_len in pattern_lengths:
-                for y_len in pattern_lengths:
-                    for s_len in signal_lengths:
-                        # Generate test strings
-                        x = self._generate_binary_string(x_len)
-                        y = self._generate_binary_string(y_len)
-                        
-                        # Generate a valid interweaving of x and y
-                        s = self._generate_interweaving(x, y, s_len)
-                        
-                        # Measure time
-                        start_time = time.time()
-                        tracemalloc.start()
-                        
-                        # Run the algorithm
-                        _ = is_interweaving(s, x, y)
-                        
-                        # Measure memory usage
-                        current, peak = tracemalloc.get_traced_memory()
-                        tracemalloc.stop()
-                        elapsed_time = time.time() - start_time
-                        
-                        # Store results
-                        results.append({
-                            'pattern_x_length': x_len,
-                            'pattern_y_length': y_len,
-                            'signal_length': s_len,
-                            'execution_time_ms': round(elapsed_time * 1000, 2),
-                            'memory_usage_bytes': peak
-                        })
-            
-            # Save results to file
-            docs_dir = self._ensure_docs_directory()
-            timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-            filename = f"{docs_dir}/performance_test_{timestamp}.json"
-            
-            with open(filename, 'w') as f:
-                json.dump({
-                    'timestamp': timestamp,
-                    'results': results
-                }, f, indent=2)
-            
-            # Generate summary for display
+            # Display results
             self.result_text.config(state=tk.NORMAL)
             self.result_text.delete(1.0, tk.END)
-            self.result_text.insert(tk.END, f"✅ Performance tests completed!\n\n")
-            self.result_text.insert(tk.END, f"Results saved to: {filename}\n\n")
-            
-            # Display summary of results
-            self.result_text.insert(tk.END, "Summary of Results:\n")
-            for s_len in signal_lengths:
-                # Calculate average time for this signal length
-                times = [r['execution_time_ms'] for r in results if r['signal_length'] == s_len]
-                avg_time = sum(times) / len(times) if times else 0
-                self.result_text.insert(tk.END, f"Signal length {s_len}: Avg time {avg_time:.2f}ms\n")
-            
+            self.result_text.insert(tk.END, "✅ Performance tests completed!\n\n")
+            self.result_text.insert(tk.END, output.getvalue())
             self.result_text.config(state=tk.DISABLED)
             
             # Update history
             self.history.append(("Performance Test", "", "", True))
             self._update_history()
             
+            # Save results to file
+            docs_dir = self._ensure_docs_directory()
+            timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+            
+            # Save detailed results as JSON
+            json_filename = f"{docs_dir}/performance_test_{timestamp}.json"
+            with open(json_filename, 'w') as f:
+                json.dump(test_results, f, indent=2)
+                
+            # Save raw output as text
+            txt_filename = f"{docs_dir}/performance_test_output_{timestamp}.txt"
+            with open(txt_filename, 'w') as f:
+                f.write(output.getvalue())
+                
+            messagebox.showinfo("Success", f"Test results saved to:\n{txt_filename}\n{json_filename}")
+            
         except Exception as e:
             self.result_text.config(state=tk.NORMAL)
             self.result_text.delete(1.0, tk.END)
-            self.result_text.insert(tk.END, f"❌ ERROR: {str(e)}")
+            self.result_text.insert(tk.END, f"❌ ERROR: {str(e)}\n\n")
+            self.result_text.insert(tk.END, traceback.format_exc())
             self.result_text.config(state=tk.DISABLED)
             messagebox.showerror("Error", f"An error occurred during testing: {str(e)}")
     

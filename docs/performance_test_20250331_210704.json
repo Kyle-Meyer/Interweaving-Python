@@ -1,0 +1,116 @@
+{
+  "basic_tests": [
+    {
+      "test_id": 1,
+      "signal": "100010101",
+      "pattern_x": "101",
+      "pattern_y": "0",
+      "expected": true,
+      "result": true,
+      "comparisons": 26,
+      "success": true
+    },
+    {
+      "test_id": 2,
+      "signal": "1010",
+      "pattern_x": "10",
+      "pattern_y": "1",
+      "expected": true,
+      "result": true,
+      "comparisons": 12,
+      "success": true
+    },
+    {
+      "test_id": 3,
+      "signal": "0101",
+      "pattern_x": "01",
+      "pattern_y": "10",
+      "expected": false,
+      "result": true,
+      "comparisons": 10,
+      "success": false
+    },
+    {
+      "test_id": 4,
+      "signal": "1100110011",
+      "pattern_x": "11",
+      "pattern_y": "00",
+      "expected": true,
+      "result": true,
+      "comparisons": 20,
+      "success": true
+    },
+    {
+      "test_id": 5,
+      "signal": "01010101",
+      "pattern_x": "01",
+      "pattern_y": "01",
+      "expected": true,
+      "result": true,
+      "comparisons": 24,
+      "success": true
+    },
+    {
+      "test_id": 6,
+      "signal": "",
+      "pattern_x": "0",
+      "pattern_y": "1",
+      "expected": false,
+      "result": false,
+      "comparisons": 0,
+      "success": true
+    },
+    {
+      "test_id": 7,
+      "signal": "0",
+      "pattern_x": "",
+      "pattern_y": "1",
+      "expected": false,
+      "result": false,
+      "comparisons": 0,
+      "success": true
+    },
+    {
+      "test_id": 8,
+      "signal": "1",
+      "pattern_x": "0",
+      "pattern_y": "",
+      "expected": false,
+      "result": false,
+      "comparisons": 0,
+      "success": true
+    },
+    {
+      "test_id": 9,
+      "signal": "01234",
+      "pattern_x": "01",
+      "pattern_y": "23",
+      "expected": false,
+      "result": false,
+      "comparisons": 10,
+      "success": true
+    }
+  ],
+  "complexity_analysis": [
+    {
+      "length": 10,
+      "comparisons": 30,
+      "time_seconds": 5.4836273193359375e-06
+    },
+    {
+      "length": 100,
+      "comparisons": 310,
+      "time_seconds": 5.340576171875e-05
+    },
+    {
+      "length": 1000,
+      "comparisons": 3110,
+      "time_seconds": 0.0007429122924804688
+    },
+    {
+      "length": 5000,
+      "comparisons": 15554,
+      "time_seconds": 0.003728151321411133
+    }
+  ]
+}
