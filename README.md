@@ -8,6 +8,8 @@ Signal Untangler is designed to solve a common problem in signal processing: det
 
 ## Algorithm Analysis
 
+see the results under the `docs` section
+
 ### Problem Definition
 
 Given:
